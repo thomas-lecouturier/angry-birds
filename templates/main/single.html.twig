@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {# On a reçu depuis la méthode de contrôleur birdSingle(),
+        une variable `bird` qui est un tableau associatif représentant un oiseau #}
+    {# {{ dump(bird) }} #}
+    <h1>{{ bird.name }}</h1>
+
+    <div class="card border-primary mb-3">
+        <div class="card-body text-center">
+            <p class="card-text"><img src="{{ asset('images/' ~ bird.image) }}" alt=""></p>
+        </div>
+    </div>
+
+    <p>{{ bird.description }}</p>
+
+    <hr>
+    <a href="{{ path('bird_list') }}" class="btn btn-danger">Retour à la liste</a>
+{% endblock %}

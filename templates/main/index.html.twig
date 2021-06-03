@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Hello MainController!{% endblock %}
+
+{% block body %}
+
+<h1>A Field Guide to Angry Birds</h1>
+
+<h2>Games that lodge in the brain often have comical stars</h2>
+
+{# app est une variable disponible sur tous les templates twig #}
+{# app contient des informations sur l'environnement dans lequel twig est exécuté #}
+{# On récupère la session de l'utilisateur avec app.session #}
+{# Puisqu'on définit une clé lastBird dans la session dans MainController::birdSingle(), #}
+{# on peut l'utiliser ici pour afficher le nom du dernier oiseau vu #}
+{# {{ dump(app.session.get('lastBird')) }} #}
+{# Pour avoir l'index du dernier oiseau vu : app.session.get('lastBird') #}
+
+{% if app.session.get('lastBird') is not null %}
+    {% set birdId =  app.session.get('lastBird') %}
+    <p>
+        Dernier oiseau vu : <a href="{{ path('bird_single', {'id': birdId}) }}">{{ birds[birdId].name }}</a>
+    </p>
+{% endif %}
+
+<p>
+Download : <a href="{{ path('bird_calendar') }}">calendar.pdf</a>
+</p>
+
+<div class="row">
+    {# On boucle sur la liste des oiseaux pour tous les afficher #}
+    {% for index, bird in birds %} {# équivaut à : foreach ($birds as $index => $bird) #}
+        <div class="col-4">
+            <div class="card bg-{{ cycle(['primary','info'], loop.index0) }} mb-3">
+                <div class="card-body text-center">
+                    {# Pour générer une URL, on utilise le nom de la route avec url() ou path() #}
+                    {# url() fournit une URL complète avec http et le domaine #}
+                    {# path() fournit un chemin relatif dans le projet sans http ni le domaine #}
+                    <a href="{{ path('bird_single', {'id': index}) }}" class="card-text">
+                       {# <img src="{{ asset('images/' ~ bird.image) }}" alt="" #}
+                    </a>
+                    <h4 class="card-title">{{ bird.name }}</h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
