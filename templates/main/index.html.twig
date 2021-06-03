@@ -37,7 +37,7 @@ Download : <a href="{{ path('bird_calendar') }}">calendar.pdf</a>
                     {# url() fournit une URL complète avec http et le domaine #}
                     {# path() fournit un chemin relatif dans le projet sans http ni le domaine #}
                     <a href="{{ path('bird_single', {'id': index}) }}" class="card-text">
-                       {# <img src="{{ asset('images/' ~ bird.image) }}" alt="" #}
+                        <img src="{{ asset('images/' ~ bird.image) }}" alt="" 
                     </a>
                     <h4 class="card-title">{{ bird.name }}</h4>
                 </div>
